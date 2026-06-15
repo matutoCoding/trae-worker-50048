@@ -5,7 +5,7 @@ import classnames from 'classnames';
 import styles from './index.module.scss';
 import SectionHeader from '@/components/SectionHeader';
 import EmptyState from '@/components/EmptyState';
-import { orders } from '@/data/orders';
+import { useOrderStore } from '@/store/orderStore';
 import { deliveryStaffs, funeralHomes, cooperationNames } from '@/data/workers';
 import { deliveryStatusNames } from '@/data/orders';
 import { Order } from '@/types';
@@ -20,6 +20,7 @@ const TAB_LIST = [
 const DeliveryPage: React.FC = () => {
   const [activeTab, setActiveTab] = useState('all');
   const [refreshing, setRefreshing] = useState(false);
+  const orders = useOrderStore(s => s.orders);
 
   usePullDownRefresh(() => {
     setRefreshing(true);
@@ -36,7 +37,7 @@ const DeliveryPage: React.FC = () => {
       order: o,
       deliveryStatus: o.delivery?.status || (o.status === 'delivered' ? 'delivered' : 'pending')
     }));
-  }, []);
+  }, [orders]);
 
   const filteredOrders = useMemo(() => {
     return deliveryOrders.filter(item => {

@@ -3,13 +3,15 @@ import { View, Text, Button, Image } from '@tarojs/components';
 import Taro, { useRouter } from '@tarojs/taro';
 import classnames from 'classnames';
 import styles from './index.module.scss';
-import { orders, orderStatusNames, urgencyNames, paymentMethodNames } from '@/data/orders';
+import { orderStatusNames, urgencyNames, paymentMethodNames } from '@/data/orders';
+import { useOrderStore } from '@/store/orderStore';
 import { Order } from '@/types';
 
 const OrderDetailPage: React.FC = () => {
   const router = useRouter();
   const orderId = router.params.id || 'o001';
-  const order: Order = useMemo(() => orders.find(o => o.id === orderId) || orders[0], [orderId]);
+  const storeOrders = useOrderStore(s => s.orders);
+  const order: Order = storeOrders.find(o => o.id === orderId) || storeOrders[0];
 
   const timeline = useMemo(() => {
     const items: { label: string; time?: string; active: boolean; remark?: string }[] = [];
@@ -221,7 +223,7 @@ const OrderDetailPage: React.FC = () => {
               </View>
             </View>
             {order.couplet.horizontal && (
-              <View style={{ textAlign: 'center', marginTop: '$spacing-sm', fontSize: '$font-size-sm', color: '$color-text-secondary' }}>
+              <View style={{ textAlign: 'center', marginTop: '16rpx', fontSize: '24rpx', color: '#5A626C' }}>
                 横批：{order.couplet.horizontal}
               </View>
             )}
@@ -269,8 +271,8 @@ const OrderDetailPage: React.FC = () => {
           </View>
 
           {order.arrangementRequired && (
-            <View style={{ marginTop: '$spacing-lg' }}>
-              <View className={styles.cardTitle} style={{ marginBottom: '$spacing-md' }}>
+            <View style={{ marginTop: '32rpx' }}>
+              <View className={styles.cardTitle} style={{ marginBottom: '24rpx' }}>
                 <View className={styles.titleBar}></View>
                 <Text>灵堂布置</Text>
                 <Text className={styles.actionBtn} onClick={() => handleAction('arrangement')}>
@@ -278,7 +280,7 @@ const OrderDetailPage: React.FC = () => {
                 </Text>
               </View>
               {order.arrangement?.remarks && (
-                <Text style={{ fontSize: '$font-size-sm', color: '$color-text-secondary' }}>
+                <Text style={{ fontSize: '24rpx', color: '#5A626C' }}>
                   {order.arrangement.remarks}
                 </Text>
               )}
@@ -365,7 +367,7 @@ const OrderDetailPage: React.FC = () => {
             </View>
 
             {order.paymentMethod && (
-              <View style={{ marginTop: '$spacing-sm', textAlign: 'right', fontSize: '$font-size-xs', color: '$color-text-tertiary' }}>
+              <View style={{ marginTop: '16rpx', textAlign: 'right', fontSize: '22rpx', color: '#8A9099' }}>
                 已支付 ¥{order.paidAmount} · {paymentMethodNames[order.paymentMethod]}
               </View>
             )}

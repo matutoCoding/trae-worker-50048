@@ -1,23 +1,26 @@
-import React, { useState, useMemo } from 'react';
+import React, { useState } from 'react';
 import { View, Text, Button, Image } from '@tarojs/components';
 import Taro, { useRouter } from '@tarojs/taro';
 import classnames from 'classnames';
 import styles from './index.module.scss';
-import { orders } from '@/data/orders';
-import { deliveryStaffs } from '@/data/workers';
+import { useOrderStore, now } from '@/store/orderStore';
 import { deliveryStatusNames } from '@/data/orders';
+import { deliveryStaffs } from '@/data/workers';
 
 const DeliveryDetailPage: React.FC = () => {
   const router = useRouter();
   const orderId = router.params.id || 'o001';
-  const order = useMemo(() => orders.find(o => o.id === orderId) || orders[0], [orderId]);
 
-  const driver = useMemo(() => {
+  const order = useOrderStore(s => s.orders.find(o => o.id === orderId)) || useOrderStore(s => s.orders[0]);
+  const updateDelivery = useOrderStore(s => s.updateDelivery);
+  const updateOrderStatus = useOrderStore(s => s.updateOrderStatus);
+
+  const driver = (() => {
     if (order.delivery) {
       return deliveryStaffs.find(d => d.id === order.delivery!.staffId) || deliveryStaffs[0];
     }
     return deliveryStaffs[0];
-  }, [order]);
+  })();
 
   const deliveryStatus = order.delivery?.status ||
     (order.status === 'delivered' ? 'delivered' : 'pending');
@@ -38,9 +41,17 @@ const DeliveryDetailPage: React.FC = () => {
     Taro.showToast({ title: '发送消息功能', icon: 'none' });
   };
 
+  const handlePickup = () => {
+    updateDelivery(orderId, { status: 'picked' });
+    Taro.showToast({ title: '已确认取货', icon: 'success' });
+  };
+
   const handleTakePhoto = () => {
-    console.log('[DeliveryDetail] handleTakePhoto');
-    Taro.showToast({ title: '拍照功能', icon: 'none' });
+    const seed = Math.floor(Math.random() * 1000);
+    const photoUrl = `https://picsum.photos/seed/${seed}/400/400`;
+    const currentPhotos = order.delivery?.photos || [];
+    updateDelivery(orderId, { photos: [...currentPhotos, photoUrl] });
+    Taro.showToast({ title: '拍照成功', icon: 'success' });
   };
 
   const handleSign = () => {
@@ -63,11 +74,9 @@ const DeliveryDetailPage: React.FC = () => {
   };
 
   const confirmDelivery = (name: string) => {
-    Taro.showLoading({ title: '确认中...' });
-    setTimeout(() => {
-      Taro.hideLoading();
-      Taro.showToast({ title: `${name} 已签收`, icon: 'success' });
-    }, 800);
+    updateDelivery(orderId, { status: 'delivered', signedBy: name, signedAt: now() }, 'delivered');
+    updateOrderStatus(orderId, 'delivered');
+    Taro.showToast({ title: `${name} 已签收`, icon: 'success' });
   };
 
   const handlePlanRoute = () => {
@@ -112,7 +121,7 @@ const DeliveryDetailPage: React.FC = () => {
               预计 {order.delivery?.estimatedArrival?.slice(11, 16) || order.address.deliveryTime} 到达
             </View>
           </View>
-          <Text style={{ fontSize: '$font-size-xs', opacity: 0.75 }}>
+          <Text className={styles.routeHint}>
             路线：{order.delivery?.route?.join(' → ') || '规划中'}
           </Text>
         </View>
@@ -216,7 +225,7 @@ const DeliveryDetailPage: React.FC = () => {
 
           {(order.delivery?.photos?.length || deliveryStatus === 'delivered') && (
             <View className={styles.photosSection}>
-              <Text className={styles.cardTitle} style={{ marginBottom: '$spacing-md' }}>签收凭证</Text>
+              <Text className={styles.cardTitle}>签收凭证</Text>
               <View className={styles.photosGrid}>
                 {order.delivery?.photos?.map((p, idx) => (
                   <View key={idx} className={styles.photoItem}>
@@ -257,7 +266,7 @@ const DeliveryDetailPage: React.FC = () => {
             <Button className={classnames(styles.btn, styles.btnGhost)} onClick={handlePlanRoute}>
               规划路线
             </Button>
-            <Button className={classnames(styles.btn, styles.btnPrimary)}>
+            <Button className={classnames(styles.btn, styles.btnPrimary)} onClick={handlePickup}>
               确认取货
             </Button>
           </>

@@ -4,7 +4,8 @@ import Taro, { useDidShow, usePullDownRefresh } from '@tarojs/taro';
 import styles from './index.module.scss';
 import OrderCard from '@/components/OrderCard';
 import EmptyState from '@/components/EmptyState';
-import { orders as initialOrders, orderStatusNames } from '@/data/orders';
+import { orderStatusNames } from '@/data/orders';
+import { useOrderStore, now } from '@/store/orderStore';
 import { Order, OrderStatus, TabKey, UrgencyLevel } from '@/types';
 
 const TAB_LIST: { key: TabKey; label: string }[] = [
@@ -23,13 +24,13 @@ const URGENCY_FILTERS: { key: UrgencyLevel | 'all'; label: string }[] = [
 ];
 
 const OrdersPage: React.FC = () => {
-  const [orders, setOrders] = useState<Order[]>(initialOrders);
+  const orders = useOrderStore(s => s.orders);
+  const updateOrderStatus = useOrderStore(s => s.updateOrderStatus);
   const [activeTab, setActiveTab] = useState<TabKey>('all');
   const [urgencyFilter, setUrgencyFilter] = useState<UrgencyLevel | 'all'>('all');
   const [refreshing, setRefreshing] = useState(false);
 
   useDidShow(() => {
-    setOrders(prev => [...prev]);
   });
 
   usePullDownRefresh(() => {
@@ -69,9 +70,7 @@ const OrdersPage: React.FC = () => {
 
     switch (action) {
       case 'confirm':
-        setOrders(prev => prev.map(o =>
-          o.id === order.id ? { ...o, status: 'confirmed' as OrderStatus } : o
-        ));
+        updateOrderStatus(order.id, 'confirmed');
         Taro.showToast({ title: '订单已确认', icon: 'success' });
         break;
       case 'cancel':
@@ -81,9 +80,7 @@ const OrdersPage: React.FC = () => {
           confirmColor: '#B4272C',
           success: (res) => {
             if (res.confirm) {
-              setOrders(prev => prev.map(o =>
-                o.id === order.id ? { ...o, status: 'cancelled' as OrderStatus } : o
-              ));
+              updateOrderStatus(order.id, 'cancelled');
               Taro.showToast({ title: '已取消', icon: 'success' });
             }
           }
@@ -111,7 +108,7 @@ const OrdersPage: React.FC = () => {
   };
 
   const handleCreateOrder = () => {
-    Taro.showToast({ title: '新建订单功能', icon: 'none' });
+    Taro.navigateTo({ url: '/pages/order-create/index' });
     console.log('[Orders] handleCreateOrder');
   };
 

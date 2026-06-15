@@ -3,18 +3,23 @@ import { View, Text, Button, Image, Textarea } from '@tarojs/components';
 import Taro, { useRouter } from '@tarojs/taro';
 import classnames from 'classnames';
 import styles from './index.module.scss';
-import { orders } from '@/data/orders';
+import { useOrderStore, now } from '@/store/orderStore';
 import { workers, skillLevelNames, workerStatusNames } from '@/data/workers';
 import { categoryNames } from '@/data/styles';
-import { Worker } from '@/types';
+import { DispatchTask, OrderStatus } from '@/types';
 
 const DispatchPage: React.FC = () => {
   const router = useRouter();
   const orderId = router.params.id || 'o001';
 
+  const orders = useOrderStore(state => state.orders);
+  const dispatchWorkers = useOrderStore(state => state.dispatchWorkers);
+  const updateDispatchTask = useOrderStore(state => state.updateDispatchTask);
+  const updateOrderStatus = useOrderStore(state => state.updateOrderStatus);
+
   const order = useMemo(() =>
     orders.find(o => o.id === orderId) || orders[1],
-    [orderId]
+    [orderId, orders]
   );
 
   const [selectedWorker, setSelectedWorker] = useState<string | null>(
@@ -39,6 +44,10 @@ const DispatchPage: React.FC = () => {
     const tasks = order.dispatchTasks;
     if (tasks.length === 0) return [];
 
+    const startedTask = tasks.find(t => t.startedAt);
+    const completedTask = tasks.find(t => t.completedAt);
+    const notedTask = tasks.find(t => t.notes);
+
     return [
       {
         label: '派工分配',
@@ -49,21 +58,20 @@ const DispatchPage: React.FC = () => {
       {
         label: '开始扎制',
         status: tasks.some(t => t.startedAt) ? 'done' : (order.status === 'making' ? 'active' : 'pending'),
-        time: tasks.find(t => t.startedAt)?.startedAt?.slice(11, 16),
-        worker: tasks.find(t => t.startedAt) ? workers.find(w => w.id === t.workerId)?.name : null
+        time: startedTask?.startedAt?.slice(11, 16),
+        worker: startedTask ? workers.find(w => w.id === startedTask.workerId)?.name : null
       },
       {
         label: '扎制完成',
         status: tasks.every(t => t.status === 'completed') ? 'done' : 'pending',
-        time: tasks.find(t => t.completedAt)?.completedAt?.slice(11, 16),
-        worker: tasks.find(t => t.completedAt) ? workers.find(w => w.id === t.workerId)?.name : null,
-        notes: tasks.find(t => t.notes)?.notes
+        time: completedTask?.completedAt?.slice(11, 16),
+        worker: completedTask ? workers.find(w => w.id === completedTask.workerId)?.name : null,
+        notes: notedTask?.notes
       }
     ];
   }, [order]);
 
   const handleAssign = () => {
-    console.log('[Dispatch] handleAssign', { selectedWorker, notes });
     if (!selectedWorker) {
       Taro.showToast({ title: '请选择扎制师傅', icon: 'none' });
       return;
@@ -73,27 +81,54 @@ const DispatchPage: React.FC = () => {
       content: `派工给 ${workers.find(w => w.id === selectedWorker)?.name}`,
       success: (res) => {
         if (res.confirm) {
-          Taro.showLoading({ title: '派工中...' });
-          setTimeout(() => {
-            Taro.hideLoading();
-            Taro.showToast({ title: '派工成功', icon: 'success' });
-          }, 800);
+          const task: DispatchTask = {
+            workerId: selectedWorker,
+            assignedAt: now(),
+            status: 'assigned',
+            notes: notes || undefined
+          };
+          const newStatus: OrderStatus = order.status === 'pending' ? 'confirmed' : order.status;
+          dispatchWorkers(orderId, [task], newStatus);
+          Taro.showToast({
+            title: '派工成功',
+            icon: 'success',
+            success: () => {
+              setTimeout(() => Taro.navigateBack(), 1500);
+            }
+          });
         }
       }
     });
   };
 
   const handleUpdateStatus = (action: 'start' | 'complete') => {
-    console.log('[Dispatch] handleUpdateStatus', { action });
+    const task = order.dispatchTasks[0];
+    if (!task) return;
     const msg = action === 'start' ? '确认开始扎制？' : '确认扎制完成？';
     Taro.showModal({
       title: '操作确认',
       content: msg,
       success: (res) => {
         if (res.confirm) {
+          if (action === 'start') {
+            updateDispatchTask(orderId, task.workerId, {
+              startedAt: now(),
+              status: 'in_progress'
+            });
+            updateOrderStatus(orderId, 'making');
+          } else {
+            updateDispatchTask(orderId, task.workerId, {
+              completedAt: now(),
+              status: 'completed'
+            });
+            updateOrderStatus(orderId, 'completed');
+          }
           Taro.showToast({
             title: action === 'start' ? '已开始扎制' : '扎制完成',
-            icon: 'success'
+            icon: 'success',
+            success: () => {
+              setTimeout(() => Taro.navigateBack(), 1500);
+            }
           });
         }
       }

@@ -376,6 +376,11 @@
   flex: 1;
 }
 
+.routeHint {
+  font-size: $font-size-xs;
+  opacity: 0.75;
+}
+
 .photosSection {
   margin-top: $spacing-md;
 }

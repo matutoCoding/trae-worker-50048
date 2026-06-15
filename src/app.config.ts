@@ -11,7 +11,8 @@ export default defineAppConfig({
     'pages/arrangement/index',
     'pages/order-detail/index',
     'pages/refund/index',
-    'pages/style-detail/index'
+    'pages/style-detail/index',
+    'pages/order-create/index'
   ],
   window: {
     backgroundTextStyle: 'light',

@@ -5,6 +5,8 @@ import classnames from 'classnames';
 import styles from './index.module.scss';
 import { funeralStyles } from '@/data/styles';
 import { FuneralStyle } from '@/types';
+import { useOrderStore, now } from '@/store/orderStore';
+import { funeralHomes } from '@/data/workers';
 
 const StyleDetailPage: React.FC = () => {
   const router = useRouter();
@@ -17,6 +19,8 @@ const StyleDetailPage: React.FC = () => {
   const [currentImg, setCurrentImg] = useState(0);
   const [quantity, setQuantity] = useState(1);
   const [isFavorite, setIsFavorite] = useState(false);
+
+  const addOrder = useOrderStore(s => s.addOrder);
 
   const totalPrice = style.price * quantity;
   const discountPercent = style.originalPrice
@@ -53,14 +57,51 @@ const StyleDetailPage: React.FC = () => {
       confirmColor: '#2D5A4B',
       success: (res) => {
         if (res.confirm) {
-          Taro.showLoading({ title: '下单中...' });
+          const subtotal = style.price * quantity;
+          const deliveryFee = 60;
+          const totalAmount = subtotal + deliveryFee;
+
+          const order = {
+            id: `o_${Date.now()}`,
+            orderNo: `BY${new Date().toISOString().slice(0, 10).replace(/-/g, '')}${String(useOrderStore.getState().orders.length + 1).padStart(3, '0')}`,
+            createdAt: now(),
+            status: 'pending' as const,
+            urgency: 'normal' as const,
+            styles: [{
+              styleId: style.id,
+              styleName: style.name,
+              styleImage: style.images[0],
+              quantity,
+              unitPrice: style.price,
+              subtotal: style.price * quantity
+            }],
+            address: {
+              funeralHome: funeralHomes[0].name,
+              funeralHall: '待确认',
+              address: funeralHomes[0].address,
+              contactName: '待填写',
+              contactPhone: '',
+              deliveryDate: new Date().toISOString().slice(0, 10),
+              deliveryTime: '10:00'
+            },
+            arrangementRequired: false,
+            dispatchTasks: [],
+            subtotal,
+            arrangementFee: 0,
+            deliveryFee,
+            urgentFee: 0,
+            discountAmount: 0,
+            totalAmount,
+            paidAmount: 0,
+            customerName: '线上客户',
+            customerPhone: ''
+          };
+
+          addOrder(order);
+          Taro.showToast({ title: '下单成功', icon: 'success' });
           setTimeout(() => {
-            Taro.hideLoading();
-            Taro.showToast({ title: '下单成功', icon: 'success' });
-            setTimeout(() => {
-              Taro.switchTab({ url: '/pages/orders/index' });
-            }, 1000);
-          }, 800);
+            Taro.switchTab({ url: '/pages/orders/index' });
+          }, 1000);
         }
       }
     });
@@ -176,7 +217,7 @@ const StyleDetailPage: React.FC = () => {
           </View>
         </View>
 
-        <View style={{ height: '$spacing-2xl' }}></View>
+        <View style={{ height: '64rpx' }}></View>
       </View>
 
       <View className={styles.footer}>
