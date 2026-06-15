@@ -1,0 +1,252 @@
+@use '@/styles/variables.scss' as *;
+
+.page {
+  min-height: 100vh;
+  background: $color-bg-page;
+  padding-bottom: 160rpx;
+}
+
+.header {
+  background: linear-gradient(135deg, $color-primary 0%, $color-primary-dark 100%);
+  padding: $spacing-lg $page-padding $spacing-2xl;
+  border-radius: 0 0 $radius-xl $radius-xl;
+}
+
+.title {
+  font-size: $font-size-xxl;
+  font-weight: $font-weight-bold;
+  color: $color-text-white;
+  margin-bottom: $spacing-lg;
+}
+
+.quickActions {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: $spacing-sm;
+}
+
+.quickItem {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: $spacing-sm;
+  background: rgba(255, 255, 255, 0.15);
+  border-radius: $radius-lg;
+  padding: $spacing-md 0;
+  transition: all $transition-base;
+}
+
+.quickItem:active {
+  background: rgba(255, 255, 255, 0.25);
+  transform: scale(0.98);
+}
+
+.quickIcon {
+  width: 72rpx;
+  height: 72rpx;
+  border-radius: $radius-round;
+  background: rgba(255, 255, 255, 0.25);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 36rpx;
+}
+
+.quickLabel {
+  font-size: $font-size-xs;
+  color: $color-text-white;
+  font-weight: $font-weight-medium;
+}
+
+.content {
+  padding: 0 $page-padding;
+  margin-top: -$spacing-xl;
+  position: relative;
+  z-index: 1;
+}
+
+.statsRow {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: $spacing-md;
+  margin-bottom: $spacing-md;
+}
+
+.taskSection {
+  background: $color-bg-card;
+  border-radius: $radius-lg;
+  padding: $spacing-lg;
+  box-shadow: $shadow-card;
+  margin-bottom: $spacing-md;
+}
+
+.taskItem {
+  display: flex;
+  align-items: center;
+  padding: $spacing-md 0;
+  border-bottom: 1rpx solid $color-divider;
+  gap: $spacing-md;
+}
+
+.taskItem:last-child {
+  border-bottom: none;
+}
+
+.taskAvatar {
+  width: 88rpx;
+  height: 88rpx;
+  border-radius: $radius-round;
+  background: $color-bg-hover;
+  flex-shrink: 0;
+  overflow: hidden;
+}
+
+.taskAvatar img {
+  width: 100%;
+  height: 100%;
+}
+
+.taskInfo {
+  flex: 1;
+  min-width: 0;
+}
+
+.taskTitle {
+  font-size: $font-size-md;
+  font-weight: $font-weight-semibold;
+  color: $color-text-primary;
+  @include text-ellipsis;
+}
+
+.taskDesc {
+  font-size: $font-size-xs;
+  color: $color-text-tertiary;
+  margin-top: $spacing-xs;
+  @include text-ellipsis;
+}
+
+.taskMeta {
+  display: flex;
+  align-items: center;
+  gap: $spacing-sm;
+  margin-top: $spacing-xs;
+}
+
+.taskBadge {
+  font-size: 20rpx;
+  padding: 2rpx 10rpx;
+  border-radius: $radius-xs;
+  font-weight: $font-weight-medium;
+}
+
+.urgentBadge {
+  background: rgba(180, 39, 44, 0.1);
+  color: $color-error;
+}
+
+.timeBadge {
+  background: rgba(201, 169, 98, 0.15);
+  color: #C9A962;
+}
+
+.workerStatus {
+  background: $color-bg-card;
+  border-radius: $radius-lg;
+  padding: $spacing-lg;
+  box-shadow: $shadow-card;
+}
+
+.workerList {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-md;
+}
+
+.workerItem {
+  display: flex;
+  align-items: center;
+  gap: $spacing-md;
+}
+
+.workerAvatar {
+  width: 88rpx;
+  height: 88rpx;
+  border-radius: $radius-round;
+  background: $color-bg-hover;
+  flex-shrink: 0;
+  overflow: hidden;
+  position: relative;
+}
+
+.workerAvatar img {
+  width: 100%;
+  height: 100%;
+}
+
+.statusDot {
+  position: absolute;
+  right: 2rpx;
+  bottom: 2rpx;
+  width: 24rpx;
+  height: 24rpx;
+  border-radius: $radius-round;
+  border: 4rpx solid $color-bg-card;
+}
+
+.dotWorking {
+  background: $color-success;
+}
+
+.dotIdle {
+  background: $color-gold;
+}
+
+.dotOffline {
+  background: $color-text-disabled;
+}
+
+.workerInfo {
+  flex: 1;
+  min-width: 0;
+}
+
+.workerName {
+  font-size: $font-size-md;
+  font-weight: $font-weight-semibold;
+  color: $color-text-primary;
+  display: flex;
+  align-items: center;
+  gap: $spacing-xs;
+}
+
+.levelTag {
+  font-size: 20rpx;
+  padding: 2rpx 10rpx;
+  border-radius: $radius-xs;
+  background: rgba(45, 90, 75, 0.1);
+  color: $color-primary;
+  font-weight: $font-weight-medium;
+}
+
+.workerTask {
+  font-size: $font-size-xs;
+  color: $color-text-tertiary;
+  margin-top: $spacing-xs;
+}
+
+.specialtyTag {
+  font-size: 20rpx;
+  padding: 2rpx 10rpx;
+  border-radius: $radius-xs;
+  background: $color-bg-hover;
+  color: $color-text-secondary;
+  margin-left: $spacing-xs;
+}
+
+.taskCount {
+  font-size: $font-size-md;
+  font-weight: $font-weight-bold;
+  color: $color-primary;
+  min-width: 80rpx;
+  text-align: right;
+}

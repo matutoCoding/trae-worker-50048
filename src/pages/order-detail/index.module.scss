@@ -1,0 +1,383 @@
+@use '@/styles/variables.scss' as *;
+
+.page {
+  min-height: 100vh;
+  background: $color-bg-page;
+  padding-bottom: 240rpx;
+}
+
+.statusBanner {
+  background: linear-gradient(135deg, $color-primary 0%, $color-primary-dark 100%);
+  padding: $spacing-xl $page-padding $spacing-2xl;
+  border-radius: 0 0 $radius-xl $radius-xl;
+  color: $color-text-white;
+}
+
+.bannerTop {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  margin-bottom: $spacing-md;
+}
+
+.statusLabel {
+  font-size: $font-size-sm;
+  opacity: 0.8;
+  margin-bottom: $spacing-xs;
+}
+
+.statusText {
+  font-size: 44rpx;
+  font-weight: $font-weight-bold;
+}
+
+.urgency {
+  font-size: $font-size-xs;
+  padding: 6rpx 16rpx;
+  border-radius: $radius-sm;
+  background: rgba(180, 39, 44, 0.9);
+  font-weight: $font-weight-semibold;
+}
+
+.tags {
+  display: flex;
+  gap: $spacing-sm;
+  margin-top: $spacing-sm;
+}
+
+.tag {
+  font-size: $font-size-xs;
+  padding: 4rpx 12rpx;
+  border-radius: $radius-xs;
+  background: rgba(255, 255, 255, 0.15);
+}
+
+.orderNoRow {
+  font-size: $font-size-xs;
+  opacity: 0.75;
+  border-top: 1rpx solid rgba(255, 255, 255, 0.15);
+  padding-top: $spacing-md;
+  margin-top: $spacing-md;
+  display: flex;
+  justify-content: space-between;
+}
+
+.content {
+  padding: 0 $page-padding;
+  margin-top: -$spacing-lg;
+  position: relative;
+  z-index: 1;
+}
+
+.card {
+  background: $color-bg-card;
+  border-radius: $radius-lg;
+  padding: $spacing-lg;
+  box-shadow: $shadow-card;
+  margin-bottom: $spacing-md;
+}
+
+.cardTitle {
+  font-size: $font-size-lg;
+  font-weight: $font-weight-semibold;
+  color: $color-text-primary;
+  margin-bottom: $spacing-md;
+  display: flex;
+  align-items: center;
+  gap: $spacing-sm;
+}
+
+.titleBar {
+  width: 6rpx;
+  height: 32rpx;
+  border-radius: $radius-xs;
+  background: linear-gradient(180deg, $color-primary 0%, $color-primary-light 100%);
+}
+
+.actionBtn {
+  margin-left: auto;
+  font-size: $font-size-xs;
+  color: $color-primary;
+  font-weight: $font-weight-medium;
+}
+
+.itemRow {
+  display: flex;
+  gap: $spacing-md;
+  padding: $spacing-sm 0;
+  border-bottom: 1rpx solid $color-divider;
+}
+
+.itemRow:last-child {
+  border-bottom: none;
+}
+
+.itemImg {
+  width: 140rpx;
+  height: 140rpx;
+  border-radius: $radius-sm;
+  background: $color-bg-hover;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+
+.itemImg img {
+  width: 100%;
+  height: 100%;
+}
+
+.itemInfo {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-width: 0;
+}
+
+.itemName {
+  font-size: $font-size-md;
+  color: $color-text-primary;
+  font-weight: $font-weight-medium;
+  @include text-ellipsis;
+}
+
+.itemBottom {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+}
+
+.itemPrice {
+  font-size: $font-size-md;
+  color: $color-error;
+  font-weight: $font-weight-semibold;
+}
+
+.itemQty {
+  font-size: $font-size-sm;
+  color: $color-text-tertiary;
+}
+
+.infoRows {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-md;
+}
+
+.infoRow {
+  display: flex;
+  align-items: flex-start;
+  gap: $spacing-md;
+}
+
+.infoLabel {
+  font-size: $font-size-sm;
+  color: $color-text-tertiary;
+  width: 160rpx;
+  flex-shrink: 0;
+}
+
+.infoValue {
+  font-size: $font-size-sm;
+  color: $color-text-primary;
+  flex: 1;
+}
+
+.coupletPreview {
+  display: flex;
+  justify-content: center;
+  gap: $spacing-xl;
+  padding: $spacing-lg;
+  background: linear-gradient(180deg, #2D2D2D 0%, #1A1A1A 100%);
+  border-radius: $radius-md;
+  margin-top: $spacing-md;
+}
+
+.coupletScroll {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: linear-gradient(180deg, #5C1A1A 0%, #401212 100%);
+  padding: $spacing-md $spacing-sm;
+  border-radius: $radius-sm;
+  border: 2rpx solid #8B3A3A;
+  width: 80rpx;
+}
+
+.coupletChar {
+  color: #F8E8B8;
+  font-size: 28rpx;
+  line-height: 2;
+}
+
+.amountSection {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-sm;
+}
+
+.amountRow {
+  display: flex;
+  justify-content: space-between;
+  font-size: $font-size-sm;
+}
+
+.amountLabel {
+  color: $color-text-secondary;
+}
+
+.amountValue {
+  color: $color-text-primary;
+}
+
+.amountRow.discount .amountValue {
+  color: $color-success;
+}
+
+.totalRow {
+  display: flex;
+  justify-content: space-between;
+  padding-top: $spacing-md;
+  margin-top: $spacing-sm;
+  border-top: 1rpx solid $color-divider;
+}
+
+.totalLabel {
+  font-size: $font-size-md;
+  color: $color-text-primary;
+  font-weight: $font-weight-semibold;
+}
+
+.totalValue {
+  font-size: $font-size-xl;
+  color: $color-error;
+  font-weight: $font-weight-bold;
+}
+
+.paidBadge {
+  font-size: $font-size-xs;
+  padding: 4rpx 12rpx;
+  border-radius: $radius-xs;
+  background: rgba(45, 125, 74, 0.1);
+  color: $color-success;
+  margin-left: $spacing-sm;
+  font-weight: $font-weight-medium;
+  vertical-align: middle;
+}
+
+.unpaidBadge {
+  font-size: $font-size-xs;
+  padding: 4rpx 12rpx;
+  border-radius: $radius-xs;
+  background: rgba(201, 169, 98, 0.15);
+  color: $color-warning;
+  margin-left: $spacing-sm;
+  font-weight: $font-weight-medium;
+  vertical-align: middle;
+}
+
+.timeline {
+  padding-left: $spacing-md;
+  position: relative;
+}
+
+.timeline::before {
+  content: '';
+  position: absolute;
+  left: 11rpx;
+  top: 8rpx;
+  bottom: 8rpx;
+  width: 2rpx;
+  background: $color-divider;
+}
+
+.timelineItem {
+  position: relative;
+  padding-bottom: $spacing-lg;
+  padding-left: $spacing-lg;
+}
+
+.timelineItem:last-child {
+  padding-bottom: 0;
+}
+
+.timelineDot {
+  position: absolute;
+  left: -25rpx;
+  top: 6rpx;
+  width: 24rpx;
+  height: 24rpx;
+  border-radius: $radius-round;
+  background: $color-border;
+  border: 4rpx solid $color-bg-card;
+}
+
+.timelineDot.active {
+  background: $color-primary;
+  box-shadow: 0 0 0 4rpx rgba(45, 90, 75, 0.15);
+}
+
+.timelineLabel {
+  font-size: $font-size-sm;
+  color: $color-text-primary;
+  font-weight: $font-weight-medium;
+}
+
+.timelineLabel.active {
+  color: $color-primary;
+}
+
+.timelineTime {
+  font-size: $font-size-xs;
+  color: $color-text-tertiary;
+  margin-top: 4rpx;
+}
+
+.timelineRemark {
+  font-size: $font-size-xs;
+  color: $color-text-secondary;
+  margin-top: $spacing-xs;
+  padding: $spacing-xs $spacing-sm;
+  background: $color-bg-hover;
+  border-radius: $radius-xs;
+  display: inline-block;
+}
+
+.footer {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  padding: $spacing-md $page-padding;
+  padding-bottom: calc($spacing-md + env(safe-area-inset-bottom));
+  background: $color-bg-card;
+  box-shadow: 0 -4rpx 16rpx rgba(0, 0, 0, 0.06);
+  display: flex;
+  gap: $spacing-md;
+}
+
+.btn {
+  @include button-reset;
+  height: $button-height-lg;
+  border-radius: $radius-button;
+  font-size: $font-size-md;
+  font-weight: $font-weight-semibold;
+  transition: all $transition-base;
+  padding: 0 $spacing-lg;
+}
+
+.btnGhost {
+  background: transparent;
+  border: 2rpx solid $color-border;
+  color: $color-text-secondary;
+}
+
+.btnGhost:active { background: $color-bg-hover; }
+
+.btnPrimary {
+  background: linear-gradient(135deg, $color-primary 0%, $color-primary-light 100%);
+  color: $color-text-white;
+  flex: 1;
+}
+
+.btnPrimary:active { opacity: 0.9; transform: scale(0.98); }

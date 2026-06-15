@@ -1,0 +1,379 @@
+@use '@/styles/variables.scss' as *;
+
+.page {
+  min-height: 100vh;
+  background: $color-bg-page;
+  padding-bottom: 200rpx;
+}
+
+.content {
+  padding: $spacing-lg $page-padding;
+}
+
+.orderSummary {
+  background: linear-gradient(135deg, $color-primary 0%, $color-primary-dark 100%);
+  border-radius: $radius-lg;
+  padding: $spacing-lg;
+  margin-bottom: $spacing-xl;
+  color: $color-text-white;
+}
+
+.orderTop {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: $spacing-md;
+}
+
+.orderNo {
+  font-size: $font-size-sm;
+  opacity: 0.8;
+}
+
+.orderTags {
+  display: flex;
+  gap: $spacing-sm;
+}
+
+.urgentTag {
+  font-size: $font-size-xs;
+  padding: 4rpx 12rpx;
+  border-radius: $radius-xs;
+  background: rgba(255, 255, 255, 0.2);
+  font-weight: $font-weight-semibold;
+}
+
+.orderItems {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-sm;
+  margin: $spacing-md 0;
+}
+
+.orderItem {
+  display: flex;
+  align-items: center;
+  gap: $spacing-sm;
+  background: rgba(255, 255, 255, 0.1);
+  padding: $spacing-sm $spacing-md;
+  border-radius: $radius-md;
+}
+
+.itemImg {
+  width: 64rpx;
+  height: 64rpx;
+  border-radius: $radius-sm;
+  background: rgba(255, 255, 255, 0.2);
+  flex-shrink: 0;
+  overflow: hidden;
+}
+
+.itemImg img {
+  width: 100%;
+  height: 100%;
+}
+
+.itemName {
+  flex: 1;
+  font-size: $font-size-sm;
+  @include text-ellipsis;
+}
+
+.itemQty {
+  font-size: $font-size-xs;
+  opacity: 0.8;
+}
+
+.deliveryInfo {
+  font-size: $font-size-xs;
+  opacity: 0.85;
+  line-height: $line-height-loose;
+  border-top: 1rpx solid rgba(255, 255, 255, 0.2);
+  padding-top: $spacing-md;
+}
+
+.sectionCard {
+  background: $color-bg-card;
+  border-radius: $radius-lg;
+  padding: $spacing-lg;
+  box-shadow: $shadow-card;
+  margin-bottom: $spacing-md;
+}
+
+.sectionTitle {
+  font-size: $font-size-lg;
+  font-weight: $font-weight-semibold;
+  color: $color-text-primary;
+  margin-bottom: $spacing-lg;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.assignBtn {
+  @include button-reset;
+  height: $button-height-sm;
+  padding: 0 $spacing-lg;
+  border-radius: $radius-button;
+  font-size: $font-size-xs;
+  background: linear-gradient(135deg, $color-primary 0%, $color-primary-light 100%);
+  color: $color-text-white;
+  font-weight: $font-weight-medium;
+}
+
+.assignBtn:active {
+  opacity: 0.9;
+  transform: scale(0.98);
+}
+
+.workerList {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-md;
+}
+
+.workerItem {
+  display: flex;
+  align-items: center;
+  gap: $spacing-md;
+  padding: $spacing-md;
+  border-radius: $radius-md;
+  background: $color-bg-page;
+  border: 2rpx solid transparent;
+  transition: all $transition-base;
+}
+
+.workerItem.selected {
+  border-color: $color-primary;
+  background: rgba(45, 90, 75, 0.06);
+}
+
+.workerAvatar {
+  width: 96rpx;
+  height: 96rpx;
+  border-radius: $radius-round;
+  background: $color-bg-hover;
+  flex-shrink: 0;
+  overflow: hidden;
+  position: relative;
+}
+
+.workerAvatar img {
+  width: 100%;
+  height: 100%;
+}
+
+.statusDot {
+  position: absolute;
+  right: 2rpx;
+  bottom: 2rpx;
+  width: 20rpx;
+  height: 20rpx;
+  border-radius: $radius-round;
+  border: 4rpx solid $color-bg-page;
+}
+
+.dotWorking { background: $color-success; }
+.dotIdle { background: $color-gold; }
+.dotOffline { background: $color-text-disabled; }
+
+.workerInfo {
+  flex: 1;
+  min-width: 0;
+}
+
+.workerName {
+  font-size: $font-size-md;
+  font-weight: $font-weight-semibold;
+  color: $color-text-primary;
+  display: flex;
+  align-items: center;
+  gap: $spacing-xs;
+}
+
+.levelTag {
+  font-size: 20rpx;
+  padding: 2rpx 10rpx;
+  border-radius: $radius-xs;
+  background: rgba(45, 90, 75, 0.1);
+  color: $color-primary;
+  font-weight: $font-weight-medium;
+}
+
+.workerMeta {
+  font-size: $font-size-xs;
+  color: $color-text-tertiary;
+  margin-top: 6rpx;
+  display: flex;
+  flex-wrap: wrap;
+  gap: $spacing-sm;
+}
+
+.specialty {
+  padding: 2rpx 10rpx;
+  border-radius: $radius-xs;
+  background: $color-bg-hover;
+  color: $color-text-secondary;
+}
+
+.taskBadge {
+  font-size: $font-size-xs;
+  color: $color-text-white;
+  background: $color-gold;
+  padding: 4rpx 12rpx;
+  border-radius: $radius-round;
+  font-weight: $font-weight-semibold;
+}
+
+.progressSection {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-md;
+}
+
+.progressItem {
+  display: flex;
+  gap: $spacing-md;
+  padding-bottom: $spacing-md;
+  position: relative;
+}
+
+.progressDot {
+  width: 32rpx;
+  height: 32rpx;
+  border-radius: $radius-round;
+  background: $color-border;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20rpx;
+  color: $color-text-white;
+  flex-shrink: 0;
+  z-index: 1;
+}
+
+.progressDot.active {
+  background: $color-primary;
+}
+
+.progressDot.done {
+  background: $color-success;
+}
+
+.progressLine {
+  position: absolute;
+  left: 15rpx;
+  top: 40rpx;
+  width: 2rpx;
+  height: calc(100% - 16rpx);
+  background: $color-divider;
+}
+
+.progressContent {
+  flex: 1;
+  padding-bottom: $spacing-xs;
+}
+
+.progressLabel {
+  font-size: $font-size-md;
+  font-weight: $font-weight-medium;
+  color: $color-text-primary;
+  display: flex;
+  align-items: center;
+  gap: $spacing-sm;
+}
+
+.progressLabel.active { color: $color-primary; }
+.progressLabel.done { color: $color-success; }
+
+.workerNameInline {
+  font-size: $font-size-xs;
+  color: $color-text-secondary;
+  font-weight: $font-weight-normal;
+}
+
+.progressTime {
+  font-size: $font-size-xs;
+  color: $color-text-tertiary;
+  margin-top: 4rpx;
+}
+
+.progressNotes {
+  margin-top: $spacing-sm;
+  padding: $spacing-sm $spacing-md;
+  background: $color-bg-hover;
+  border-radius: $radius-sm;
+  font-size: $font-size-xs;
+  color: $color-text-secondary;
+}
+
+.scheduleSection {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-md;
+}
+
+.timeInput {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: $spacing-md;
+  background: $color-bg-page;
+  border-radius: $radius-md;
+}
+
+.timeLabel {
+  font-size: $font-size-sm;
+  color: $color-text-secondary;
+}
+
+.timeValue {
+  font-size: $font-size-md;
+  color: $color-text-primary;
+  font-weight: $font-weight-medium;
+}
+
+.notesInput {
+  background: $color-bg-page;
+  border-radius: $radius-md;
+  padding: $spacing-md;
+  min-height: 160rpx;
+}
+
+.footer {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  padding: $spacing-md $page-padding;
+  padding-bottom: calc($spacing-md + env(safe-area-inset-bottom));
+  background: $color-bg-card;
+  box-shadow: 0 -4rpx 16rpx rgba(0, 0, 0, 0.06);
+  display: flex;
+  gap: $spacing-md;
+}
+
+.btn {
+  @include button-reset;
+  flex: 1;
+  height: $button-height-lg;
+  border-radius: $radius-button;
+  font-size: $font-size-md;
+  font-weight: $font-weight-semibold;
+  transition: all $transition-base;
+}
+
+.btnGhost {
+  background: transparent;
+  border: 2rpx solid $color-border;
+  color: $color-text-secondary;
+}
+
+.btnGhost:active { background: $color-bg-hover; }
+
+.btnPrimary {
+  background: linear-gradient(135deg, $color-primary 0%, $color-primary-light 100%);
+  color: $color-text-white;
+}
+
+.btnPrimary:active { opacity: 0.9; transform: scale(0.98); }

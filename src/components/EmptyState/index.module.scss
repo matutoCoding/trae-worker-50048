@@ -1,0 +1,28 @@
+@use '@/styles/variables.scss' as *;
+
+.emptyState {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: $spacing-xl 0;
+}
+
+.icon {
+  width: 200rpx;
+  height: 200rpx;
+  margin-bottom: $spacing-lg;
+  opacity: 0.5;
+}
+
+.text {
+  font-size: $font-size-md;
+  color: $color-text-tertiary;
+  line-height: $line-height-normal;
+}
+
+.subText {
+  font-size: $font-size-sm;
+  color: $color-text-disabled;
+  margin-top: $spacing-sm;
+}

@@ -1,0 +1,74 @@
+@use '@/styles/variables.scss' as *;
+
+.statusTag {
+  display: inline-flex;
+  align-items: center;
+  padding: 6rpx 16rpx;
+  border-radius: $radius-sm;
+  font-size: $font-size-xs;
+  font-weight: $font-weight-medium;
+  line-height: 1.4;
+  white-space: nowrap;
+}
+
+.pending {
+  color: #C9A962;
+  background: rgba(201, 169, 98, 0.12);
+}
+
+.confirmed {
+  color: $color-primary;
+  background: rgba(45, 90, 75, 0.12);
+}
+
+.making {
+  color: #5A8443;
+  background: rgba(90, 132, 67, 0.12);
+}
+
+.completed {
+  color: #7B6139;
+  background: rgba(123, 97, 57, 0.12);
+}
+
+.delivering {
+  color: #3D6FB0;
+  background: rgba(61, 111, 176, 0.12);
+}
+
+.delivered {
+  color: $color-success;
+  background: rgba(45, 125, 74, 0.12);
+}
+
+.cancelled {
+  color: $color-text-tertiary;
+  background: rgba(138, 144, 153, 0.12);
+}
+
+.refunding {
+  color: $color-warning;
+  background: rgba(201, 169, 98, 0.15);
+}
+
+.refunded {
+  color: $color-error;
+  background: rgba(180, 39, 44, 0.12);
+}
+
+.urgent {
+  color: $color-error;
+  background: rgba(180, 39, 44, 0.12);
+  font-weight: $font-weight-semibold;
+}
+
+.superUrgent {
+  color: #FFFFFF;
+  background: linear-gradient(135deg, #B4272C 0%, #8B1E22 100%);
+  font-weight: $font-weight-semibold;
+}
+
+.normal {
+  color: $color-text-secondary;
+  background: rgba(138, 144, 153, 0.15);
+}

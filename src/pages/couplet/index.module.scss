@@ -1,0 +1,295 @@
+@use '@/styles/variables.scss' as *;
+
+.page {
+  min-height: 100vh;
+  background: $color-bg-page;
+  padding-bottom: 200rpx;
+}
+
+.content {
+  padding: $spacing-lg $page-padding;
+}
+
+.previewCard {
+  background: linear-gradient(180deg, #2D2D2D 0%, #1A1A1A 100%);
+  border-radius: $radius-lg;
+  padding: $spacing-xl $spacing-lg;
+  margin-bottom: $spacing-xl;
+  box-shadow: 0 8rpx 32rpx rgba(0, 0, 0, 0.15);
+  position: relative;
+  overflow: hidden;
+}
+
+.previewTitle {
+  text-align: center;
+  font-size: $font-size-sm;
+  color: rgba(255, 255, 255, 0.5);
+  margin-bottom: $spacing-xl;
+}
+
+.coupletFrame {
+  display: flex;
+  justify-content: center;
+  align-items: stretch;
+  gap: $spacing-xl;
+  margin-bottom: $spacing-lg;
+}
+
+.scrollVertical {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: linear-gradient(180deg, #5C1A1A 0%, #401212 50%, #5C1A1A 100%);
+  padding: $spacing-lg $spacing-md;
+  border-radius: $radius-sm;
+  width: 120rpx;
+  min-height: 500rpx;
+  border: 2rpx solid #8B3A3A;
+  box-shadow: 0 4rpx 16rpx rgba(0, 0, 0, 0.3);
+}
+
+.scrollText {
+  color: #F8E8B8;
+  font-size: 40rpx;
+  line-height: 2;
+  writing-mode: vertical-rl;
+  text-orientation: upright;
+  letter-spacing: 12rpx;
+  text-shadow: 0 2rpx 4rpx rgba(0, 0, 0, 0.3);
+}
+
+.scrollLeft {
+  transform: rotate(0deg);
+}
+
+.scrollRight {
+  transform: rotate(0deg);
+}
+
+.horizontalScroll {
+  background: linear-gradient(180deg, #5C1A1A 0%, #401212 100%);
+  padding: $spacing-md $spacing-xl;
+  border-radius: $radius-sm;
+  border: 2rpx solid #8B3A3A;
+  box-shadow: 0 4rpx 16rpx rgba(0, 0, 0, 0.3);
+}
+
+.horizontalText {
+  color: #F8E8B8;
+  font-size: 36rpx;
+  letter-spacing: 16rpx;
+  text-align: center;
+  text-shadow: 0 2rpx 4rpx rgba(0, 0, 0, 0.3);
+  font-weight: $font-weight-semibold;
+}
+
+.decedentInfo {
+  text-align: center;
+  padding-top: $spacing-lg;
+  border-top: 1rpx solid rgba(255, 255, 255, 0.1);
+}
+
+.decedentName {
+  color: rgba(255, 255, 255, 0.9);
+  font-size: $font-size-lg;
+  font-weight: $font-weight-semibold;
+}
+
+.senderInfo {
+  color: rgba(255, 255, 255, 0.6);
+  font-size: $font-size-sm;
+  margin-top: $spacing-sm;
+}
+
+.formCard {
+  background: $color-bg-card;
+  border-radius: $radius-lg;
+  padding: $spacing-lg;
+  box-shadow: $shadow-card;
+  margin-bottom: $spacing-md;
+}
+
+.formTitle {
+  font-size: $font-size-lg;
+  font-weight: $font-weight-semibold;
+  color: $color-text-primary;
+  margin-bottom: $spacing-lg;
+  display: flex;
+  align-items: center;
+  gap: $spacing-sm;
+}
+
+.titleBar {
+  width: 6rpx;
+  height: 32rpx;
+  border-radius: $radius-xs;
+  background: linear-gradient(180deg, $color-primary 0%, $color-primary-light 100%);
+}
+
+.formGroup {
+  margin-bottom: $spacing-lg;
+}
+
+.formGroup:last-child {
+  margin-bottom: 0;
+}
+
+.formLabel {
+  font-size: $font-size-sm;
+  color: $color-text-secondary;
+  margin-bottom: $spacing-sm;
+  font-weight: $font-weight-medium;
+}
+
+.labelRequired {
+  color: $color-error;
+  margin-right: 4rpx;
+}
+
+.inputWrap {
+  background: $color-bg-page;
+  border-radius: $radius-md;
+  border: 2rpx solid transparent;
+  transition: all $transition-base;
+}
+
+.textareaInput {
+  width: 100%;
+  min-height: 140rpx;
+  padding: $spacing-md;
+  font-size: $font-size-md;
+  color: $color-text-primary;
+  line-height: $line-height-normal;
+  box-sizing: border-box;
+}
+
+.textInput {
+  width: 100%;
+  height: 88rpx;
+  padding: 0 $spacing-md;
+  font-size: $font-size-md;
+  color: $color-text-primary;
+  box-sizing: border-box;
+}
+
+.charCount {
+  text-align: right;
+  font-size: $font-size-xs;
+  color: $color-text-tertiary;
+  margin-top: $spacing-xs;
+}
+
+.fontOptions {
+  display: flex;
+  gap: $spacing-md;
+}
+
+.fontOption {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: $spacing-md $spacing-sm;
+  border-radius: $radius-md;
+  background: $color-bg-page;
+  border: 2rpx solid transparent;
+  transition: all $transition-base;
+  gap: $spacing-xs;
+}
+
+.fontOption.active {
+  background: rgba(45, 90, 75, 0.08);
+  border-color: $color-primary;
+}
+
+.fontPreview {
+  font-size: 36rpx;
+  color: $color-text-primary;
+}
+
+.fontStandard {
+  font-family: serif;
+}
+
+.fontElegant {
+  font-family: 'KaiTi', 'STKaiti', cursive;
+}
+
+.fontSolemn {
+  font-family: 'SimHei', sans-serif;
+  font-weight: $font-weight-bold;
+}
+
+.fontName {
+  font-size: $font-size-xs;
+  color: $color-text-tertiary;
+}
+
+.templates {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: $spacing-md;
+}
+
+.templateItem {
+  background: $color-bg-page;
+  border-radius: $radius-md;
+  padding: $spacing-md;
+  border: 2rpx solid transparent;
+  transition: all $transition-base;
+}
+
+.templateItem:active {
+  border-color: $color-primary;
+  transform: scale(0.98);
+}
+
+.templateText {
+  font-size: $font-size-xs;
+  color: $color-text-secondary;
+  line-height: $line-height-loose;
+}
+
+.footer {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  padding: $spacing-md $page-padding;
+  padding-bottom: calc($spacing-md + env(safe-area-inset-bottom));
+  background: $color-bg-card;
+  box-shadow: 0 -4rpx 16rpx rgba(0, 0, 0, 0.06);
+  display: flex;
+  gap: $spacing-md;
+}
+
+.btnCancel, .btnSave {
+  @include button-reset;
+  flex: 1;
+  height: $button-height-lg;
+  border-radius: $radius-button;
+  font-size: $font-size-md;
+  font-weight: $font-weight-semibold;
+  transition: all $transition-base;
+}
+
+.btnCancel {
+  background: transparent;
+  border: 2rpx solid $color-border;
+  color: $color-text-secondary;
+}
+
+.btnCancel:active {
+  background: $color-bg-hover;
+}
+
+.btnSave {
+  background: linear-gradient(135deg, $color-primary 0%, $color-primary-light 100%);
+  color: $color-text-white;
+}
+
+.btnSave:active {
+  opacity: 0.9;
+  transform: scale(0.98);
+}

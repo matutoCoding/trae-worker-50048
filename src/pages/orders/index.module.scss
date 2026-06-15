@@ -1,0 +1,136 @@
+@use '@/styles/variables.scss' as *;
+
+.page {
+  min-height: 100vh;
+  background: $color-bg-page;
+  padding-bottom: 160rpx;
+}
+
+.header {
+  background: linear-gradient(135deg, $color-primary 0%, $color-primary-dark 100%);
+  padding: $spacing-lg $page-padding $spacing-xl;
+  border-radius: 0 0 $radius-xl $radius-xl;
+}
+
+.topBar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: $spacing-lg;
+}
+
+.title {
+  font-size: $font-size-xxl;
+  font-weight: $font-weight-bold;
+  color: $color-text-white;
+}
+
+.statGrid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: $spacing-sm;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: $radius-lg;
+  padding: $spacing-md;
+}
+
+.statItem {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: $spacing-xs;
+}
+
+.statNum {
+  font-size: 36rpx;
+  font-weight: $font-weight-bold;
+  color: $color-text-white;
+}
+
+.statLabel {
+  font-size: $font-size-xs;
+  color: rgba(255, 255, 255, 0.75);
+}
+
+.content {
+  padding: 0 $page-padding;
+  margin-top: -$spacing-md;
+  position: relative;
+  z-index: 1;
+}
+
+.tabBar {
+  display: flex;
+  background: $color-bg-card;
+  border-radius: $radius-lg;
+  padding: $spacing-xs;
+  margin-bottom: $spacing-md;
+  box-shadow: $shadow-card;
+  overflow-x: auto;
+  white-space: nowrap;
+}
+
+.tabItem {
+  flex: 1;
+  min-width: 120rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: $spacing-sm $spacing-md;
+  border-radius: $radius-md;
+  font-size: $font-size-sm;
+  color: $color-text-secondary;
+  font-weight: $font-weight-medium;
+  white-space: nowrap;
+  transition: all $transition-base;
+}
+
+.tabItem.active {
+  background: linear-gradient(135deg, $color-primary 0%, $color-primary-light 100%);
+  color: $color-text-white;
+}
+
+.urgencyFilter {
+  display: flex;
+  gap: $spacing-sm;
+  margin-bottom: $spacing-md;
+}
+
+.filterChip {
+  padding: $spacing-xs $spacing-md;
+  border-radius: $radius-button;
+  font-size: $font-size-xs;
+  background: $color-bg-card;
+  color: $color-text-secondary;
+  border: 1rpx solid $color-border;
+  transition: all $transition-base;
+}
+
+.filterChip.active {
+  background: rgba(180, 39, 44, 0.1);
+  color: $color-error;
+  border-color: rgba(180, 39, 44, 0.3);
+  font-weight: $font-weight-medium;
+}
+
+.createBtn {
+  @include button-reset;
+  position: fixed;
+  right: $page-padding;
+  bottom: 140rpx;
+  width: 120rpx;
+  height: 120rpx;
+  border-radius: $radius-round;
+  background: linear-gradient(135deg, $color-primary 0%, $color-primary-light 100%);
+  color: $color-text-white;
+  font-size: 48rpx;
+  box-shadow: 0 8rpx 32rpx rgba(45, 90, 75, 0.35);
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.createBtn:active {
+  transform: scale(0.95);
+}

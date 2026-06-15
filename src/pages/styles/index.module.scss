@@ -1,0 +1,139 @@
+@use '@/styles/variables.scss' as *;
+
+.page {
+  min-height: 100vh;
+  background: $color-bg-page;
+  padding-bottom: 160rpx;
+}
+
+.searchBar {
+  background: linear-gradient(135deg, $color-primary 0%, $color-primary-dark 100%);
+  padding: $spacing-lg $page-padding $spacing-xl;
+}
+
+.title {
+  font-size: $font-size-xxl;
+  font-weight: $font-weight-bold;
+  color: $color-text-white;
+  margin-bottom: $spacing-md;
+}
+
+.searchInput {
+  display: flex;
+  align-items: center;
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: $radius-button;
+  padding: 0 $spacing-lg;
+  height: 80rpx;
+}
+
+.searchIcon {
+  color: $color-text-tertiary;
+  font-size: $font-size-lg;
+  margin-right: $spacing-sm;
+}
+
+.inputPlaceholder {
+  color: $color-text-tertiary;
+  font-size: $font-size-md;
+}
+
+.content {
+  padding: 0 $page-padding;
+  margin-top: -$spacing-md;
+  position: relative;
+  z-index: 1;
+}
+
+.categoryTabs {
+  display: flex;
+  background: $color-bg-card;
+  border-radius: $radius-lg;
+  padding: $spacing-xs;
+  margin-bottom: $spacing-md;
+  box-shadow: $shadow-card;
+  overflow-x: auto;
+  @include scroll-x-container;
+}
+
+.categoryTab {
+  @include scroll-x-item(auto);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: $spacing-sm $spacing-lg;
+  border-radius: $radius-md;
+  font-size: $font-size-sm;
+  color: $color-text-secondary;
+  font-weight: $font-weight-medium;
+  margin-right: $spacing-xs;
+  transition: all $transition-base;
+  white-space: nowrap;
+}
+
+.categoryTab.active {
+  background: linear-gradient(135deg, $color-primary 0%, $color-primary-light 100%);
+  color: $color-text-white;
+}
+
+.hotSection {
+  margin-bottom: $spacing-md;
+}
+
+.hotScroll {
+  display: flex;
+  gap: $spacing-md;
+  overflow-x: auto;
+  margin: 0 (-$page-padding);
+  padding: $spacing-xs $page-padding $spacing-sm;
+  @include scroll-x-container;
+}
+
+.hotCard {
+  @include scroll-x-item(480rpx);
+  display: inline-flex;
+  flex-direction: column;
+  background: $color-bg-card;
+  border-radius: $radius-lg;
+  overflow: hidden;
+  box-shadow: $shadow-card;
+  flex-shrink: 0;
+  vertical-align: top;
+}
+
+.hotImage {
+  width: 100%;
+  height: 280rpx;
+  background: $color-bg-hover;
+}
+
+.hotContent {
+  padding: $spacing-md;
+}
+
+.hotName {
+  font-size: $font-size-md;
+  font-weight: $font-weight-semibold;
+  color: $color-text-primary;
+  margin-bottom: $spacing-xs;
+  @include text-ellipsis;
+}
+
+.hotDesc {
+  font-size: $font-size-xs;
+  color: $color-text-tertiary;
+  @include text-ellipsis-multi(1);
+  margin-bottom: $spacing-sm;
+}
+
+.hotPrice {
+  color: $color-error;
+  font-weight: $font-weight-bold;
+  font-size: $font-size-lg;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: $spacing-md;
+}

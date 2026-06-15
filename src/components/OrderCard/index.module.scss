@@ -1,0 +1,188 @@
+@use '@/styles/variables.scss' as *;
+
+.orderCard {
+  background: $color-bg-card;
+  border-radius: $radius-lg;
+  padding: $spacing-lg;
+  margin-bottom: $spacing-md;
+  box-shadow: $shadow-card;
+  transition: all $transition-base;
+}
+
+.orderCard:active {
+  transform: scale(0.99);
+}
+
+.cardHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: $spacing-md;
+}
+
+.leftInfo {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-xs;
+}
+
+.orderNo {
+  font-size: $font-size-sm;
+  color: $color-text-tertiary;
+}
+
+.tagsRow {
+  display: flex;
+  align-items: center;
+  gap: $spacing-sm;
+}
+
+.rightInfo {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: $spacing-xs;
+}
+
+.time {
+  font-size: $font-size-xs;
+  color: $color-text-tertiary;
+}
+
+.stylesSection {
+  display: flex;
+  gap: $spacing-md;
+  padding: $spacing-md 0;
+  border-top: 1rpx solid $color-divider;
+  border-bottom: 1rpx solid $color-divider;
+}
+
+.styleItem {
+  display: flex;
+  gap: $spacing-md;
+  flex: 1;
+  min-width: 0;
+}
+
+.styleImage {
+  width: 120rpx;
+  height: 120rpx;
+  border-radius: $radius-sm;
+  background: $color-bg-hover;
+  flex-shrink: 0;
+}
+
+.styleInfo {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-width: 0;
+  flex: 1;
+}
+
+.styleName {
+  font-size: $font-size-md;
+  color: $color-text-primary;
+  font-weight: $font-weight-medium;
+  @include text-ellipsis;
+}
+
+.styleMeta {
+  display: flex;
+  justify-content: bottom;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.stylePrice {
+  font-size: $font-size-sm;
+  color: $color-primary;
+  font-weight: $font-weight-semibold;
+}
+
+.styleQty {
+  font-size: $font-size-xs;
+  color: $color-text-tertiary;
+}
+
+.infoSection {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-sm;
+  padding-top: $spacing-md;
+}
+
+.infoRow {
+  display: flex;
+  align-items: flex-start;
+  gap: $spacing-sm;
+  font-size: $font-size-sm;
+}
+
+.infoLabel {
+  color: $color-text-tertiary;
+  flex-shrink: 0;
+  width: 120rpx;
+}
+
+.infoValue {
+  color: $color-text-primary;
+  flex: 1;
+  @include text-ellipsis;
+}
+
+.footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-top: $spacing-md;
+  border-top: 1rpx solid $color-divider;
+  margin-top: $spacing-md;
+}
+
+.totalAmount {
+  font-size: $font-size-sm;
+  color: $color-text-secondary;
+}
+
+.amountValue {
+  color: $color-error;
+  font-weight: $font-weight-bold;
+  font-size: $font-size-lg;
+  margin-left: $spacing-xs;
+}
+
+.actions {
+  display: flex;
+  gap: $spacing-sm;
+}
+
+.actionBtn {
+  @include button-reset;
+  height: $button-height-sm;
+  padding: 0 $spacing-lg;
+  border-radius: $radius-button;
+  font-size: $font-size-sm;
+  white-space: nowrap;
+  transition: all $transition-base;
+}
+
+.primaryBtn {
+  background: linear-gradient(135deg, $color-primary 0%, $color-primary-light 100%);
+  color: $color-text-white;
+}
+
+.primaryBtn:active {
+  opacity: 0.9;
+  transform: scale(0.98);
+}
+
+.ghostBtn {
+  background: transparent;
+  border: 1rpx solid $color-border;
+  color: $color-text-secondary;
+}
+
+.ghostBtn:active {
+  background: $color-bg-hover;
+}

@@ -1,0 +1,351 @@
+@use '@/styles/variables.scss' as *;
+
+.page {
+  min-height: 100vh;
+  background: $color-bg-page;
+  padding-bottom: 160rpx;
+}
+
+.header {
+  background: linear-gradient(135deg, $color-primary 0%, $color-primary-dark 100%);
+  padding: $spacing-lg $page-padding $spacing-2xl;
+  border-radius: 0 0 $radius-xl $radius-xl;
+}
+
+.title {
+  font-size: $font-size-xxl;
+  font-weight: $font-weight-bold;
+  color: $color-text-white;
+  margin-bottom: $spacing-lg;
+}
+
+.monthSelector {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: rgba(255, 255, 255, 0.15);
+  border-radius: $radius-lg;
+  padding: $spacing-md $spacing-lg;
+  margin-bottom: $spacing-lg;
+}
+
+.monthText {
+  font-size: $font-size-md;
+  color: $color-text-white;
+  font-weight: $font-weight-semibold;
+}
+
+.monthArrow {
+  color: $color-text-white;
+  font-size: $font-size-lg;
+}
+
+.revenueCard {
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.15) 0%, rgba(255, 255, 255, 0.08) 100%);
+  border: 1rpx solid rgba(255, 255, 255, 0.2);
+  border-radius: $radius-lg;
+  padding: $spacing-lg;
+}
+
+.revenueLabel {
+  font-size: $font-size-sm;
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.revenueValue {
+  font-size: 64rpx;
+  font-weight: $font-weight-bold;
+  color: $color-text-white;
+  margin: $spacing-sm 0 $spacing-xs;
+  letter-spacing: 1rpx;
+}
+
+.revenueSub {
+  display: flex;
+  gap: $spacing-xl;
+  margin-top: $spacing-sm;
+}
+
+.revenueSubItem {
+  font-size: $font-size-xs;
+  color: rgba(255, 255, 255, 0.75);
+}
+
+.subValue {
+  color: $color-text-white;
+  font-weight: $font-weight-semibold;
+  margin-left: $spacing-xs;
+}
+
+.content {
+  padding: 0 $page-padding;
+  margin-top: -$spacing-lg;
+  position: relative;
+  z-index: 1;
+}
+
+.statsGrid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: $spacing-sm;
+  background: $color-bg-card;
+  border-radius: $radius-lg;
+  padding: $spacing-lg;
+  box-shadow: $shadow-card;
+  margin-bottom: $spacing-md;
+}
+
+.statsItem {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: $spacing-xs;
+}
+
+.statsNum {
+  font-size: $font-size-xl;
+  font-weight: $font-weight-bold;
+  color: $color-text-primary;
+}
+
+.statsLabel {
+  font-size: $font-size-xs;
+  color: $color-text-tertiary;
+  text-align: center;
+}
+
+.sectionCard {
+  background: $color-bg-card;
+  border-radius: $radius-lg;
+  padding: $spacing-lg;
+  box-shadow: $shadow-card;
+  margin-bottom: $spacing-md;
+}
+
+.chartSection {
+  margin-top: $spacing-md;
+}
+
+.chartTitle {
+  font-size: $font-size-sm;
+  color: $color-text-secondary;
+  margin-bottom: $spacing-md;
+}
+
+.bars {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  height: 240rpx;
+  gap: $spacing-sm;
+  padding-bottom: $spacing-sm;
+  border-bottom: 1rpx solid $color-divider;
+}
+
+.barWrap {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+  height: 100%;
+  gap: $spacing-xs;
+}
+
+.bar {
+  width: 100%;
+  max-width: 48rpx;
+  border-radius: $radius-xs $radius-xs 0 0;
+  background: linear-gradient(180deg, $color-primary-light 0%, $color-primary 100%);
+  transition: all $transition-base;
+  min-height: 8rpx;
+  position: relative;
+}
+
+.barValue {
+  font-size: 18rpx;
+  color: $color-text-tertiary;
+  position: absolute;
+  top: -28rpx;
+  left: 50%;
+  transform: translateX(-50%);
+  white-space: nowrap;
+}
+
+.barLabel {
+  font-size: 20rpx;
+  color: $color-text-tertiary;
+  text-align: center;
+}
+
+.categoryList {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-md;
+}
+
+.categoryItem {
+  display: flex;
+  align-items: center;
+  gap: $spacing-md;
+}
+
+.catIcon {
+  width: 64rpx;
+  height: 64rpx;
+  border-radius: $radius-md;
+  background: linear-gradient(135deg, rgba(45, 90, 75, 0.1) 0%, rgba(74, 133, 114, 0.1) 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 32rpx;
+  flex-shrink: 0;
+}
+
+.catInfo {
+  flex: 1;
+  min-width: 0;
+}
+
+.catName {
+  font-size: $font-size-md;
+  font-weight: $font-weight-semibold;
+  color: $color-text-primary;
+  display: flex;
+  align-items: center;
+  gap: $spacing-sm;
+}
+
+.catCount {
+  font-size: $font-size-xs;
+  color: $color-text-tertiary;
+  font-weight: $font-weight-normal;
+}
+
+.catBar {
+  height: 12rpx;
+  background: $color-bg-hover;
+  border-radius: $radius-round;
+  margin-top: $spacing-sm;
+  overflow: hidden;
+}
+
+.catBarFill {
+  height: 100%;
+  border-radius: $radius-round;
+  background: linear-gradient(90deg, $color-primary 0%, $color-primary-light 100%);
+}
+
+.catAmount {
+  font-size: $font-size-md;
+  font-weight: $font-weight-bold;
+  color: $color-error;
+  min-width: 140rpx;
+  text-align: right;
+}
+
+.refundSection {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-md;
+}
+
+.refundItem {
+  display: flex;
+  align-items: center;
+  gap: $spacing-md;
+  padding: $spacing-md;
+  background: $color-bg-hover;
+  border-radius: $radius-md;
+}
+
+.refundIcon {
+  width: 64rpx;
+  height: 64rpx;
+  border-radius: $radius-round;
+  background: rgba(180, 39, 44, 0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 32rpx;
+  flex-shrink: 0;
+}
+
+.refundInfo {
+  flex: 1;
+  min-width: 0;
+}
+
+.refundOrder {
+  font-size: $font-size-md;
+  font-weight: $font-weight-medium;
+  color: $color-text-primary;
+  @include text-ellipsis;
+}
+
+.refundReason {
+  font-size: $font-size-xs;
+  color: $color-text-tertiary;
+  margin-top: 4rpx;
+  @include text-ellipsis;
+}
+
+.refundAmount {
+  font-size: $font-size-md;
+  font-weight: $font-weight-bold;
+  color: $color-error;
+}
+
+.statusTag {
+  font-size: $font-size-xs;
+  padding: 4rpx 12rpx;
+  border-radius: $radius-xs;
+  margin-top: 4rpx;
+  display: inline-block;
+}
+
+.statusCompleted {
+  background: rgba(180, 39, 44, 0.1);
+  color: $color-error;
+}
+
+.statusPending {
+  background: rgba(201, 169, 98, 0.15);
+  color: $color-warning;
+}
+
+.bottomActions {
+  display: flex;
+  gap: $spacing-md;
+  margin-top: $spacing-xl;
+}
+
+.actionBtn {
+  @include button-reset;
+  flex: 1;
+  height: $button-height-lg;
+  border-radius: $radius-button;
+  font-size: $font-size-md;
+  font-weight: $font-weight-semibold;
+  transition: all $transition-base;
+}
+
+.primaryAction {
+  background: linear-gradient(135deg, $color-primary 0%, $color-primary-light 100%);
+  color: $color-text-white;
+}
+
+.primaryAction:active {
+  opacity: 0.9;
+  transform: scale(0.98);
+}
+
+.ghostAction {
+  background: $color-bg-card;
+  border: 1rpx solid $color-border;
+  color: $color-text-secondary;
+}
+
+.ghostAction:active {
+  background: $color-bg-hover;
+}

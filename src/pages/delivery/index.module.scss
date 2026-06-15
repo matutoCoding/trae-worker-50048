@@ -1,0 +1,389 @@
+@use '@/styles/variables.scss' as *;
+
+.page {
+  min-height: 100vh;
+  background: $color-bg-page;
+  padding-bottom: 160rpx;
+}
+
+.header {
+  background: linear-gradient(135deg, $color-primary 0%, $color-primary-dark 100%);
+  padding: $spacing-lg $page-padding $spacing-xl;
+  border-radius: 0 0 $radius-xl $radius-xl;
+}
+
+.title {
+  font-size: $font-size-xxl;
+  font-weight: $font-weight-bold;
+  color: $color-text-white;
+  margin-bottom: $spacing-lg;
+}
+
+.driverSummary {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: $spacing-md;
+  background: rgba(255, 255, 255, 0.12);
+  border-radius: $radius-lg;
+  padding: $spacing-lg;
+}
+
+.driverStat {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: $spacing-xs;
+}
+
+.statNum {
+  font-size: 44rpx;
+  font-weight: $font-weight-bold;
+  color: $color-text-white;
+}
+
+.statLabel {
+  font-size: $font-size-xs;
+  color: rgba(255, 255, 255, 0.75);
+}
+
+.content {
+  padding: 0 $page-padding;
+  margin-top: -$spacing-md;
+  position: relative;
+  z-index: 1;
+}
+
+.tabs {
+  display: flex;
+  background: $color-bg-card;
+  border-radius: $radius-lg;
+  padding: $spacing-xs;
+  margin-bottom: $spacing-md;
+  box-shadow: $shadow-card;
+}
+
+.tabItem {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: $spacing-sm 0;
+  border-radius: $radius-md;
+  font-size: $font-size-sm;
+  color: $color-text-secondary;
+  font-weight: $font-weight-medium;
+  transition: all $transition-base;
+}
+
+.tabItem.active {
+  background: linear-gradient(135deg, $color-primary 0%, $color-primary-light 100%);
+  color: $color-text-white;
+}
+
+.deliveryCard {
+  background: $color-bg-card;
+  border-radius: $radius-lg;
+  padding: $spacing-lg;
+  margin-bottom: $spacing-md;
+  box-shadow: $shadow-card;
+  transition: all $transition-base;
+}
+
+.deliveryCard:active {
+  transform: scale(0.99);
+}
+
+.cardHeader {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  margin-bottom: $spacing-md;
+}
+
+.cardLeft {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-xs;
+  flex: 1;
+  min-width: 0;
+}
+
+.orderNo {
+  font-size: $font-size-sm;
+  color: $color-text-tertiary;
+}
+
+.dest {
+  font-size: $font-size-lg;
+  font-weight: $font-weight-semibold;
+  color: $color-text-primary;
+  @include text-ellipsis;
+}
+
+.hall {
+  font-size: $font-size-sm;
+  color: $color-text-secondary;
+}
+
+.cardRight {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: $spacing-xs;
+}
+
+.deliverStatus {
+  font-size: $font-size-xs;
+  padding: 6rpx 16rpx;
+  border-radius: $radius-sm;
+  font-weight: $font-weight-medium;
+}
+
+.statusEnRoute {
+  background: rgba(61, 111, 176, 0.12);
+  color: #3D6FB0;
+}
+
+.statusPending {
+  background: rgba(201, 169, 98, 0.12);
+  color: $color-warning;
+}
+
+.statusDelivered {
+  background: rgba(45, 125, 74, 0.12);
+  color: $color-success;
+}
+
+.eta {
+  font-size: $font-size-xs;
+  color: $color-text-tertiary;
+}
+
+.driverSection {
+  display: flex;
+  align-items: center;
+  padding: $spacing-md 0;
+  border-top: 1rpx solid $color-divider;
+  border-bottom: 1rpx solid $color-divider;
+  gap: $spacing-md;
+}
+
+.driverAvatar {
+  width: 80rpx;
+  height: 80rpx;
+  border-radius: $radius-round;
+  background: $color-bg-hover;
+  flex-shrink: 0;
+  overflow: hidden;
+}
+
+.driverInfo {
+  flex: 1;
+  min-width: 0;
+}
+
+.driverName {
+  font-size: $font-size-md;
+  font-weight: $font-weight-semibold;
+  color: $color-text-primary;
+  display: flex;
+  align-items: center;
+  gap: $spacing-sm;
+}
+
+.vehicleTag {
+  font-size: 20rpx;
+  padding: 2rpx 10rpx;
+  border-radius: $radius-xs;
+  background: $color-bg-hover;
+  color: $color-text-secondary;
+  font-weight: $font-weight-normal;
+}
+
+.driverMeta {
+  font-size: $font-size-xs;
+  color: $color-text-tertiary;
+  margin-top: $spacing-xs;
+}
+
+.phoneBtn {
+  @include button-reset;
+  width: 72rpx;
+  height: 72rpx;
+  border-radius: $radius-round;
+  background: linear-gradient(135deg, $color-primary 0%, $color-primary-light 100%);
+  color: $color-text-white;
+  font-size: 36rpx;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.phoneBtn:active {
+  opacity: 0.9;
+  transform: scale(0.95);
+}
+
+.itemsRow {
+  display: flex;
+  gap: $spacing-sm;
+  padding: $spacing-md 0;
+  overflow-x: auto;
+  @include scroll-x-container;
+}
+
+.itemThumb {
+  @include scroll-x-item(120rpx);
+  width: 120rpx;
+  height: 120rpx;
+  border-radius: $radius-sm;
+  background: $color-bg-hover;
+  overflow: hidden;
+  flex-shrink: 0;
+  display: inline-block;
+}
+
+.itemThumb img {
+  width: 100%;
+  height: 100%;
+}
+
+.timeline {
+  padding: $spacing-md 0 0;
+}
+
+.timelineTitle {
+  font-size: $font-size-sm;
+  color: $color-text-secondary;
+  margin-bottom: $spacing-md;
+}
+
+.timelineItem {
+  display: flex;
+  gap: $spacing-md;
+  padding-bottom: $spacing-md;
+  position: relative;
+}
+
+.timelineDot {
+  width: 24rpx;
+  height: 24rpx;
+  border-radius: $radius-round;
+  background: $color-border;
+  flex-shrink: 0;
+  margin-top: 6rpx;
+  z-index: 1;
+}
+
+.timelineDot.active {
+  background: $color-primary;
+  box-shadow: 0 0 0 8rpx rgba(45, 90, 75, 0.15);
+}
+
+.timelineLine {
+  position: absolute;
+  left: 11rpx;
+  top: 32rpx;
+  width: 2rpx;
+  height: calc(100% - 24rpx);
+  background: $color-border;
+}
+
+.timelineContent {
+  flex: 1;
+  padding-bottom: $spacing-xs;
+}
+
+.timelineLabel {
+  font-size: $font-size-sm;
+  color: $color-text-primary;
+  font-weight: $font-weight-medium;
+}
+
+.timelineLabel.active {
+  color: $color-primary;
+}
+
+.timelineTime {
+  font-size: $font-size-xs;
+  color: $color-text-tertiary;
+  margin-top: 4rpx;
+}
+
+.funeralHomeCard {
+  background: $color-bg-card;
+  border-radius: $radius-lg;
+  padding: $spacing-lg;
+  margin-top: $spacing-md;
+  box-shadow: $shadow-card;
+}
+
+.homeList {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-md;
+}
+
+.homeItem {
+  display: flex;
+  align-items: center;
+  gap: $spacing-md;
+  padding: $spacing-sm 0;
+  border-bottom: 1rpx solid $color-divider;
+}
+
+.homeItem:last-child {
+  border-bottom: none;
+}
+
+.homeIcon {
+  width: 64rpx;
+  height: 64rpx;
+  border-radius: $radius-md;
+  background: linear-gradient(135deg, rgba(45, 90, 75, 0.1) 0%, rgba(74, 133, 114, 0.1) 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 32rpx;
+  flex-shrink: 0;
+}
+
+.homeInfo {
+  flex: 1;
+  min-width: 0;
+}
+
+.homeName {
+  font-size: $font-size-md;
+  font-weight: $font-weight-semibold;
+  color: $color-text-primary;
+  display: flex;
+  align-items: center;
+  gap: $spacing-xs;
+  @include text-ellipsis;
+}
+
+.coopTag {
+  font-size: 20rpx;
+  padding: 2rpx 10rpx;
+  border-radius: $radius-xs;
+  font-weight: $font-weight-medium;
+}
+
+.coopStrategic {
+  background: rgba(45, 90, 75, 0.1);
+  color: $color-primary;
+}
+
+.coopStandard {
+  background: rgba(201, 169, 98, 0.15);
+  color: $color-gold;
+}
+
+.homeAddr {
+  font-size: $font-size-xs;
+  color: $color-text-tertiary;
+  margin-top: 4rpx;
+  @include text-ellipsis;
+}
