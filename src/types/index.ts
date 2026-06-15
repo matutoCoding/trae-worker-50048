@@ -63,6 +63,8 @@ export interface Worker {
 export interface DispatchTask {
   workerId: string;
   assignedAt: string;
+  scheduledStart?: string;
+  scheduledEnd?: string;
   startedAt?: string;
   completedAt?: string;
   status: 'assigned' | 'in_progress' | 'completed';

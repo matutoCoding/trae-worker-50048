@@ -4,8 +4,15 @@ import Taro, { useRouter } from '@tarojs/taro';
 import classnames from 'classnames';
 import styles from './index.module.scss';
 import { orderStatusNames, urgencyNames, paymentMethodNames } from '@/data/orders';
+import { workers, skillLevelNames } from '@/data/workers';
 import { useOrderStore } from '@/store/orderStore';
 import { Order } from '@/types';
+
+const dispatchTaskStatusNames: Record<string, string> = {
+  assigned: '派工中',
+  in_progress: '扎制中',
+  completed: '已完成'
+};
 
 const OrderDetailPage: React.FC = () => {
   const router = useRouter();
@@ -227,6 +234,96 @@ const OrderDetailPage: React.FC = () => {
                 横批：{order.couplet.horizontal}
               </View>
             )}
+          </View>
+        )}
+
+        {order.dispatchTasks.length > 0 && (
+          <View className={styles.card}>
+            <View className={styles.cardTitle}>
+              <View className={styles.titleBar}></View>
+              <Text>派工详情</Text>
+              <Text className={styles.actionBtn} onClick={() => handleAction('dispatch')}>
+                查看扎制进度 →
+              </Text>
+            </View>
+
+            {order.dispatchTasks.map((task, idx) => {
+              const worker = workers.find(w => w.id === task.workerId);
+              return (
+                <View key={idx} style={idx > 0 ? { marginTop: '32rpx', paddingTop: '32rpx', borderTop: '1rpx solid #EEF0F3' } : {}}>
+                  <View style={{ marginBottom: '16rpx', display: 'flex', alignItems: 'center' }}>
+                    <Text style={{ fontSize: '28rpx', fontWeight: '600', color: '#1D2129' }}>
+                      任务 {idx + 1}
+                    </Text>
+                  </View>
+                  <View className={styles.infoRows}>
+                    <View className={styles.infoRow}>
+                      <Text className={styles.infoLabel}>师傅姓名</Text>
+                      <Text className={styles.infoValue}>
+                        {worker?.name || task.workerId}
+                        {worker && (
+                          <Text style={{
+                            marginLeft: '12rpx',
+                            padding: '4rpx 12rpx',
+                            fontSize: '20rpx',
+                            borderRadius: '4rpx',
+                            background: worker.skillLevel === 'senior'
+                              ? 'linear-gradient(135deg, #B4272C 0%, #D04A4F 100%)'
+                              : worker.skillLevel === 'intermediate'
+                                ? 'linear-gradient(135deg, #E6A23C 0%, #F0C78E 100%)'
+                                : '#F2F3F5',
+                            color: worker.skillLevel === 'junior' ? '#86909C' : '#FFFFFF'
+                          }}>
+                            {skillLevelNames[worker.skillLevel]}
+                          </Text>
+                        )}
+                      </Text>
+                    </View>
+                    <View className={styles.infoRow}>
+                      <Text className={styles.infoLabel}>派工时间</Text>
+                      <Text className={styles.infoValue}>{task.assignedAt}</Text>
+                    </View>
+                    <View className={styles.infoRow}>
+                      <Text className={styles.infoLabel}>开始时间</Text>
+                      <Text className={styles.infoValue}>{task.scheduledStart || task.startedAt || '-'}</Text>
+                    </View>
+                    <View className={styles.infoRow}>
+                      <Text className={styles.infoLabel}>完成时间</Text>
+                      <Text className={styles.infoValue}>{task.scheduledEnd || task.completedAt || '-'}</Text>
+                    </View>
+                    <View className={styles.infoRow}>
+                      <Text className={styles.infoLabel}>状态</Text>
+                      <Text className={styles.infoValue}>
+                        <Text style={{
+                          padding: '6rpx 16rpx',
+                          borderRadius: '8rpx',
+                          fontSize: '22rpx',
+                          fontWeight: '500',
+                          background: task.status === 'completed'
+                            ? '#E8F5E9'
+                            : task.status === 'in_progress'
+                              ? '#FFF7E6'
+                              : '#E6F4FF',
+                          color: task.status === 'completed'
+                            ? '#00B42A'
+                            : task.status === 'in_progress'
+                              ? '#FF7D00'
+                              : '#165DFF'
+                        }}>
+                          {dispatchTaskStatusNames[task.status]}
+                        </Text>
+                      </Text>
+                    </View>
+                    {task.notes && (
+                      <View className={styles.infoRow}>
+                        <Text className={styles.infoLabel}>备注</Text>
+                        <Text className={styles.infoValue}>{task.notes}</Text>
+                      </View>
+                    )}
+                  </View>
+                </View>
+              );
+            })}
           </View>
         )}
 

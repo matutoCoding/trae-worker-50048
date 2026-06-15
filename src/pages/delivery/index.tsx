@@ -85,7 +85,7 @@ const DeliveryPage: React.FC = () => {
       { label: '扎制完成', time: order.dispatchTasks.find(t => t.completedAt)?.completedAt?.slice(11, 16) || '—', active: ['making', 'completed', 'delivering', 'delivered'].includes(order.status) },
       { label: '已取货', time: deliveryStatus === 'picked' ? '10:15' : deliveryStatus === 'en_route' || deliveryStatus === 'arrived' || deliveryStatus === 'delivered' ? '10:15' : '—', active: ['picked', 'en_route', 'arrived', 'delivered'].includes(deliveryStatus) || order.status === 'delivered' },
       { label: '配送中', time: deliveryStatus === 'en_route' ? '进行中' : deliveryStatus === 'arrived' || deliveryStatus === 'delivered' ? order.delivery?.estimatedArrival?.slice(11, 16) : '—', active: ['en_route', 'arrived', 'delivered'].includes(deliveryStatus) || order.status === 'delivering' },
-      { label: '已送达', time: deliveryStatus === 'delivered' ? order.delivery?.signedAt?.slice(11, 16) : '—', active: deliveryStatus === 'delivered' || order.status === 'delivered' }
+      { label: '已送达', time: deliveryStatus === 'delivered' ? order.delivery?.signedAt : '—', active: deliveryStatus === 'delivered' || order.status === 'delivered' }
     ];
 
     return (
@@ -103,6 +103,28 @@ const DeliveryPage: React.FC = () => {
             </View>
           </View>
         ))}
+      </View>
+    );
+  };
+
+  const renderSignInfo = (item: { order: Order; deliveryStatus: string }) => {
+    const { order, deliveryStatus } = item;
+    const isDelivered = deliveryStatus === 'delivered' || order.status === 'delivered';
+    if (!isDelivered) return null;
+
+    const signedBy = order.delivery?.signedBy || order.address.contactName;
+    const signedAt = order.delivery?.signedAt;
+
+    return (
+      <View className={styles.signInfo}>
+        <View className={styles.signRow}>
+          <Text className={styles.signLabel}>签收人</Text>
+          <Text className={styles.signValue}>{signedBy}</Text>
+        </View>
+        <View className={styles.signRow}>
+          <Text className={styles.signLabel}>签收时间</Text>
+          <Text className={styles.signValue}>{signedAt}</Text>
+        </View>
       </View>
     );
   };
@@ -219,6 +241,7 @@ const DeliveryPage: React.FC = () => {
                 </ScrollView>
 
                 {renderTimeline(item)}
+                {renderSignInfo(item)}
               </View>
             );
           })

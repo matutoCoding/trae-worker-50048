@@ -42,7 +42,7 @@ const DeliveryDetailPage: React.FC = () => {
   };
 
   const handlePickup = () => {
-    updateDelivery(orderId, { status: 'picked' });
+    updateDelivery(orderId, { status: 'en_route', actualArrival: undefined }, 'delivering');
     Taro.showToast({ title: '已确认取货', icon: 'success' });
   };
 
@@ -75,7 +75,6 @@ const DeliveryDetailPage: React.FC = () => {
 
   const confirmDelivery = (name: string) => {
     updateDelivery(orderId, { status: 'delivered', signedBy: name, signedAt: now() }, 'delivered');
-    updateOrderStatus(orderId, 'delivered');
     Taro.showToast({ title: `${name} 已签收`, icon: 'success' });
   };
 
@@ -261,7 +260,7 @@ const DeliveryDetailPage: React.FC = () => {
       </View>
 
       <View className={styles.footer}>
-        {['pending', 'picked'].includes(deliveryStatus) && (
+        {deliveryStatus === 'pending' && (
           <>
             <Button className={classnames(styles.btn, styles.btnGhost)} onClick={handlePlanRoute}>
               规划路线

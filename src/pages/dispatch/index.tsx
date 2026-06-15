@@ -8,6 +8,22 @@ import { workers, skillLevelNames, workerStatusNames } from '@/data/workers';
 import { categoryNames } from '@/data/styles';
 import { DispatchTask, OrderStatus } from '@/types';
 
+const formatDateTime = (date: Date): string => {
+  const pad = (n: number) => String(n).padStart(2, '0');
+  return `${date.getFullYear()}-${pad(date.getMonth() + 1)}-${pad(date.getDate())} ${pad(date.getHours())}:${pad(date.getMinutes())}`;
+};
+
+const getDateFromNow = (hours: number): string => {
+  const d = new Date();
+  d.setHours(d.getHours() + hours);
+  return formatDateTime(d);
+};
+
+const formatNowShort = (): string => {
+  const full = now();
+  return full.slice(0, 16);
+};
+
 const DispatchPage: React.FC = () => {
   const router = useRouter();
   const orderId = router.params.id || 'o001';
@@ -27,10 +43,10 @@ const DispatchPage: React.FC = () => {
   );
   const [notes, setNotes] = useState(order.dispatchTasks[0]?.notes || '');
   const [scheduledStart, setScheduledStart] = useState(
-    order.dispatchTasks[0]?.startedAt?.slice(11, 16) || '立即开始'
+    order.dispatchTasks[0]?.scheduledStart || formatDateTime(new Date())
   );
   const [scheduledEnd, setScheduledEnd] = useState(
-    order.dispatchTasks[0]?.completedAt?.slice(11, 16) || '预计1小时'
+    order.dispatchTasks[0]?.scheduledEnd || getDateFromNow(1)
   );
 
   const availableWorkers = useMemo(() => {
@@ -47,6 +63,7 @@ const DispatchPage: React.FC = () => {
     const startedTask = tasks.find(t => t.startedAt);
     const completedTask = tasks.find(t => t.completedAt);
     const notedTask = tasks.find(t => t.notes);
+    const taskWithSchedule = tasks.find(t => t.scheduledStart || t.scheduledEnd);
 
     return [
       {
@@ -66,10 +83,26 @@ const DispatchPage: React.FC = () => {
         status: tasks.every(t => t.status === 'completed') ? 'done' : 'pending',
         time: completedTask?.completedAt?.slice(11, 16),
         worker: completedTask ? workers.find(w => w.id === completedTask.workerId)?.name : null,
-        notes: notedTask?.notes
+        notes: notedTask?.notes,
+        scheduledStart: taskWithSchedule?.scheduledStart,
+        scheduledEnd: taskWithSchedule?.scheduledEnd
       }
     ];
   }, [order]);
+
+  const resolveScheduledStart = (): string => {
+    if (scheduledStart === '立即开始') {
+      return formatNowShort();
+    }
+    return scheduledStart;
+  };
+
+  const resolveScheduledEnd = (): string => {
+    if (scheduledEnd === '预计1小时') {
+      return getDateFromNow(1);
+    }
+    return scheduledEnd;
+  };
 
   const handleAssign = () => {
     if (!selectedWorker) {
@@ -85,7 +118,9 @@ const DispatchPage: React.FC = () => {
             workerId: selectedWorker,
             assignedAt: now(),
             status: 'assigned',
-            notes: notes || undefined
+            notes: notes || undefined,
+            scheduledStart: resolveScheduledStart(),
+            scheduledEnd: resolveScheduledEnd()
           };
           const newStatus: OrderStatus = order.status === 'pending' ? 'confirmed' : order.status;
           dispatchWorkers(orderId, [task], newStatus);
@@ -205,6 +240,12 @@ const DispatchPage: React.FC = () => {
                   </View>
                   {step.time && (
                     <Text className={styles.progressTime}>{step.time}</Text>
+                  )}
+                  {step.scheduledStart && (
+                    <View className={styles.progressNotes}>预计开始: {step.scheduledStart}</View>
+                  )}
+                  {step.scheduledEnd && (
+                    <View className={styles.progressNotes}>预计完成: {step.scheduledEnd}</View>
                   )}
                   {step.notes && (
                     <View className={styles.progressNotes}>{step.notes}</View>

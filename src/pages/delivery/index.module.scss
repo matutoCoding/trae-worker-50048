@@ -311,6 +311,31 @@
   margin-top: 4rpx;
 }
 
+.signInfo {
+  margin-top: $spacing-sm;
+  padding: $spacing-md;
+  background: rgba(45, 90, 75, 0.05);
+  border-radius: $radius-sm;
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-xs;
+}
+
+.signRow {
+  display: flex;
+  justify-content: space-between;
+  font-size: $font-size-xs;
+}
+
+.signLabel {
+  color: $color-text-secondary;
+}
+
+.signValue {
+  color: $color-primary;
+  font-weight: $font-weight-medium;
+}
+
 .funeralHomeCard {
   background: $color-bg-card;
   border-radius: $radius-lg;
